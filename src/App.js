@@ -23,25 +23,24 @@ function Carla(props) {
 
 function VideoText({ clicked, ...props }) {
   const [active, setActive] = useState(false);
-  // const { scale } = useSpring({
-  //   scale: active ? 1.5 : 1,
-  //   config: config.wobbly
-  // })
   const myMesh = React.useRef();
-  const [video] = useState(() => Object.assign(document.createElement('video'), { src: '/final.mp4', crossOrigin: 'Anonymous', loop: true }))
+  const [video] = useState(() => Object.assign(document.createElement('video'), { src: '/final.mp4', crossOrigin: 'Anonymous', loop: false }))
+  
+  // const [video2] = setState(() => Object.assign(document.createElement('video2'), { src: '/drei.mp4', crossOrigin: 'Anonymous', loop: true }))
+  
   useEffect(() => void (clicked && video.play()), [video, clicked])
   useFrame(({ clock }) => {
     const a = clock.getElapsedTime();
-    myMesh.current.rotation.x = a;
+    myMesh.current.rotation.x = 0;
   });
   return (
-    <Text font="/Alibaba-PuHuiTi-H.ttf" fontSize={1} letterSpacing={0.1} {...props}>
+    <Text font="/Alibaba-PuHuiTi-H.ttf" fontSize={2} letterSpacing={0.1} {...props}>
      数字情绪
       <meshBasicMaterial toneMapped={false}>
         <videoTexture attach="map" args={[video]} encoding={THREE.sRGBEncoding} />
       </meshBasicMaterial>
       <Text  ref={myMesh} font="/Alibaba-PuHuiTi-H.ttf" fontSize={2} up={1 }letterSpacing={-0.1} {...props}>
-         Social Netword
+         Social Network
         <meshBasicMaterial toneMapped={false}>
           <videoTexture attach="map" args={[video]} encoding={THREE.sRGBEncoding} />
         </meshBasicMaterial>
@@ -54,7 +53,7 @@ function VideoText({ clicked, ...props }) {
 function Ground() {
   const [floor, normal] = useTexture(['/SurfaceImperfections003_1K_var1.jpg', '/SurfaceImperfections003_1K_Normal.jpg'])
   return (
-    <Reflector resolution={512} args={[10, 10]} mirror={0.4} mixBlur={8} mixStrength={9} rotation={[-Math.PI / 2, 0, Math.PI / 2]} blur={[400, 100]}>
+    <Reflector resolution={2056} args={[15, 15]} mirror={0.8} mixBlur={8} mixStrength={9} rotation={[-Math.PI / 2, 0, Math.PI / 2]} blur={[400, 100]}>
       {(Material, props) => <Material color="#6F6F6F" metalness={0.4} roughnessMap={floor} normalMap={normal} normalScale={[1, 1]} {...props} />}
     </Reflector>
   )
@@ -63,7 +62,7 @@ function Ground() {
 function Intro({ start, set }) {
   const [vec] = useState(() => new THREE.Vector3())
   
-  useEffect(() => setTimeout(() => set(true), 500), [])
+  useEffect(() => setTimeout(() => set(true), 0), [])
   return useFrame((state) => {
     if (start) {
       state.camera.position.lerp(vec.set(state.mouse.x * 10, 3 + state.mouse.y * 2.4, 13), 0.05)
@@ -80,13 +79,13 @@ export default function App() {
     <>
       <Canvas  shadowMap concurrent gl={{ alpha: false }} pixelRatio={[1, 1.5]} camera={{ position: [0, 3, 160], fov: 25 }}>
         <color attach="background" args={['black']} />
-        <fog attach="fog" args={['black', 15, 20]} />
+        <fog attach="fog" args={['black', 17, 22]} />
         <Suspense fallback={null}>
           <group position={[0, -1, 0]}>
             <Carla2 castShadow  rotation={[0, Math.PI + 0.4, 0]} position={[1.2, 0, 0]} scale={[0.46, 0.46, 0.46]}  />
             {/* <Weibo position={[1.2, 0, 0]}/>  */}
             <Carla rotation={[0, Math.PI - 0.4, 0]} position={[-1.2, 0, 0]} scale={[0.26, 0.26, 0.26]} />
-            <VideoText {...store} position={[0, 2.3, -2]} />
+            <VideoText {...store} position={[0, 2.3, -3]} />
             <Ground receiveShadow/>
           </group>
           <ambientLight intensity={2.5} />

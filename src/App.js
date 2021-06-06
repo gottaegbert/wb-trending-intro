@@ -29,7 +29,7 @@ function Weibo(props) {
 function VideoText({ clicked, ...props }) {
   const [active, setActive] = useState(false);
   const myMesh = React.useRef();
-  const [video] = useState(() => Object.assign(document.createElement('video'), { src: '/final.mp4', crossOrigin: 'Anonymous', loop: true }))
+  const [video] = useState(() => Object.assign(document.createElement('video'), { src: '/cutlittle.mp4', crossOrigin: 'Anonymous', loop: true }))
   
   // const [video2] = setState(() => Object.assign(document.createElement('video2'), { src: '/drei.mp4', crossOrigin: 'Anonymous', loop: true }))
   
@@ -98,7 +98,7 @@ export default function App() {
           <directionalLight castShadow
             shadow-mapSize-height={512}
             shadow-mapSize-width={512}
-            position={[-20, 0, -10]} intensity={2.0} />
+            position={[-20, 0, -10]} intensity={2.7} />
           {/* <spotLight position={[0, 0, -10]} intensity={1.7} lookAt={0,10,0}/> */}
           <Intro start={ready && clicked} set={setReady} />
         </Suspense>

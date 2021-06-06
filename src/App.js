@@ -14,17 +14,22 @@ function Carla(props) {
   const { scene } = useGLTF('/carla-draco.glb')
   return <primitive object={scene} {...props} />
 }
+function Weibo(props) {
+  const { scene } = useGLTF('/webo-model.gltf')
+  return <primitive object={scene} {...props} />
+}
+// console.log(Weibo)
 // function Weibo(props) {
 //   const { scene } = useGLTF('/weibo-model.gltf')
 //   return <primitive object={scene}  {...props} />
 // }
 
-// console.log(Weibo)
+
 
 function VideoText({ clicked, ...props }) {
   const [active, setActive] = useState(false);
   const myMesh = React.useRef();
-  const [video] = useState(() => Object.assign(document.createElement('video'), { src: '/final.mp4', crossOrigin: 'Anonymous', loop: false }))
+  const [video] = useState(() => Object.assign(document.createElement('video'), { src: '/final.mp4', crossOrigin: 'Anonymous', loop: true }))
   
   // const [video2] = setState(() => Object.assign(document.createElement('video2'), { src: '/drei.mp4', crossOrigin: 'Anonymous', loop: true }))
   
@@ -77,23 +82,23 @@ export default function App() {
   const store = { clicked, setClicked, ready, setReady }
   return (
     <>
-      <Canvas  shadowMap concurrent gl={{ alpha: false }} pixelRatio={[1, 1.5]} camera={{ position: [0, 3, 160], fov: 25 }}>
+      <Canvas  shadowMap concurrent gl={{ alpha: false }} pixelRatio={[1, 1.5]} camera={{ position: [0, -1, 250], fov: 35 }}>
         <color attach="background" args={['black']} />
         <fog attach="fog" args={['black', 17, 22]} />
+          <Weibo scale={[0.2,0.2,0.2]} position={[5, 4,-6]} />
         <Suspense fallback={null}>
           <group position={[0, -1, 0]}>
             <Carla2 castShadow  rotation={[0, Math.PI + 0.4, 0]} position={[1.2, 0, 0]} scale={[0.46, 0.46, 0.46]}  />
-            {/* <Weibo position={[1.2, 0, 0]}/>  */}
             <Carla rotation={[0, Math.PI - 0.4, 0]} position={[-1.2, 0, 0]} scale={[0.26, 0.26, 0.26]} />
             <VideoText {...store} position={[0, 2.3, -3]} />
             <Ground receiveShadow/>
           </group>
-          <ambientLight intensity={2.5} />
+          <ambientLight intensity={0.4} />
           <spotLight position={[0, 10, 0]} intensity={1.3} />
           <directionalLight castShadow
             shadow-mapSize-height={512}
             shadow-mapSize-width={512}
-            position={[-20, 0, -10]} intensity={1.7} />
+            position={[-20, 0, -10]} intensity={2.0} />
           {/* <spotLight position={[0, 0, -10]} intensity={1.7} lookAt={0,10,0}/> */}
           <Intro start={ready && clicked} set={setReady} />
         </Suspense>

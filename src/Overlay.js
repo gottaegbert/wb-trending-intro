@@ -7,6 +7,10 @@ export default function Overlay({ ready, clicked, setClicked }) {
       <div className={`fullscreen bg ${ready ? 'ready' : 'notready'} ${clicked && 'clicked'}`}>
         <div onClick={() => ready && setClicked(true)}>{!ready ? 'loading' : 'click to continue'}</div>
       </div>
+      <div>
+        date="6.3"
+        year="2021"
+      </div>
       {/* <Footer
         date="6.3"
         year="2021"

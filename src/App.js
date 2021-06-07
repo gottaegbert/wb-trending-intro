@@ -14,10 +14,10 @@ function Carla(props) {
   const { scene } = useGLTF('/carla-draco.glb')
   return <primitive object={scene} {...props} />
 }
-function Weibo(props) {
-  const { scene } = useGLTF('/webo-model.gltf')
-  return <primitive object={scene} {...props} />
-}
+// function Weibo(props) {
+//   const { scene } = useGLTF('/webo-model.gltf')
+//   return <primitive object={scene} {...props} />
+// }
 // console.log(Weibo)
 // function Weibo(props) {
 //   const { scene } = useGLTF('/weibo-model.gltf')
@@ -29,7 +29,7 @@ function Weibo(props) {
 function VideoText({ clicked, ...props }) {
   const [active, setActive] = useState(false);
   const myMesh = React.useRef();
-  const [video] = useState(() => Object.assign(document.createElement('video'), { src: '/cutlittle.mp4', crossOrigin: 'Anonymous', loop: true }))
+  const [video] = useState(() => Object.assign(document.createElement('video'), { src: '/final.mp4', crossOrigin: 'Anonymous', loop: true }))
   
   // const [video2] = setState(() => Object.assign(document.createElement('video2'), { src: '/drei.mp4', crossOrigin: 'Anonymous', loop: true }))
   
@@ -85,7 +85,7 @@ export default function App() {
       <Canvas  shadowMap concurrent gl={{ alpha: false }} pixelRatio={[1, 1.5]} camera={{ position: [0, -1, 250], fov: 35 }}>
         <color attach="background" args={['black']} />
         <fog attach="fog" args={['black', 17, 22]} />
-          <Weibo scale={[0.2,0.2,0.2]} position={[5, 4,-6]} />
+          {/* <Weibo scale={[0.2,0.2,0.2]} position={[5, 4,-6]} /> */}
         <Suspense fallback={null}>
           <group position={[0, -1, 0]}>
             <Carla2 castShadow  rotation={[0, Math.PI + 0.4, 0]} position={[1.2, 0, 0]} scale={[0.46, 0.46, 0.46]}  />

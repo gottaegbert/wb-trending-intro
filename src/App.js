@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import React, { Suspense, useEffect, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Reflector, Text, useTexture, useGLTF } from '@react-three/drei'
+import { Reflector, Text, useTexture, Html,useGLTF } from '@react-three/drei'
 // import { useSpring, animated,config } from '@react-spring/three'
 import Overlay from './Overlay'
 
@@ -64,6 +64,25 @@ function Ground() {
   )
 }
 
+function Annotation({ children, ...props }) {
+  return (
+    <Html
+      {...props}
+      transform
+      occlude="blending"
+      geometry={
+        /** The geometry is optional, it allows you to use any shape.
+         *  By default it would be a plane. We need round edges here ...
+         */
+        <roundedPlaneGeometry args={[1.66, 0.47, 0.24]} />
+      }>
+      <div className="annotation" >{children}</div>
+    </Html>
+  )
+}
+
+
+
 function Intro({ start, set }) {
   const [vec] = useState(() => new THREE.Vector3())
   
@@ -88,6 +107,9 @@ export default function App() {
           {/* <Weibo scale={[0.2,0.2,0.2]} position={[5, 4,-6]} /> */}
         <Suspense fallback={null}>
           <group position={[0, -1, 0]}>
+             <Annotation position={[0, 5, 0]}>
+                  <span  style={{ fontSize: '1.5em' }}>🌡️</span> <a href="https://gottaegbert.github.io/weibo-trend/">Explore Now</a>
+               </Annotation>
             <Carla2 castShadow  rotation={[0, Math.PI + 0.4, 0]} position={[1.2, 0, 0]} scale={[0.46, 0.46, 0.46]}  />
             <Carla rotation={[0, Math.PI - 0.4, 0]} position={[-1.2, 0, 0]} scale={[0.26, 0.26, 0.26]} />
             <VideoText {...store} position={[0, 2.3, -3]} />

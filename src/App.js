@@ -66,16 +66,31 @@ function Intro({ start, set }) {
   })
 }
 
+function Annotation({ children, ...props }) {
+  return (
+    <Html
+      {...props}
+      transform
+      occlude="blending"
+      geometry={
+        /** The geometry is optional, it allows you to use any shape.
+         *  By default it would be a plane. We need round edges here ...
+         */
+        <roundedPlaneGeometry args={[1.66, 0.47, 0.24]} />
+      }>
+      <div className="annotation">{children}</div>
+    </Html>
+  )
+}
+
+
 export default function App() {
   const [clicked, setClicked] = useState(false)
   const [ready, setReady] = useState(false)
   const store = { clicked, setClicked, ready, setReady }
   const ref = useRef()
   return (
-    <div ref={ref} className="container">
-      <div className="text">
-        Expore it now!
-        </div>
+   
       <Canvas concurrent gl={{ alpha: false }} pixelRatio={[1, 1.5]} camera={{ position: [0, 3, 240], fov: 35 }}>
         <color attach="background" args={['black']} />
         <fog attach="fog" args={['black', 15, 20]} />
@@ -84,7 +99,9 @@ export default function App() {
             {/* <Diamonds /> */}
         <Suspense fallback={null}>
           <group position={[0, -1, 0]}>
-            
+             <Annotation position={[1.2, 0, 0]}>
+                  <span style={{ fontSize: '1.5em' }}>🌕</span> Explore it now
+               </Annotation>
             <Carla2 rotation={[0, Math.PI + 0.4, 0]} position={[1.2, 0, 0]} scale={[0.46, 0.46, 0.46]} color={0x00ff00} />
             <Carla3 rotation={[0, Math.PI + 0.4, 0]} position={[0.2, 0, 0]} scale={[0.46, 0.46, 0.46]} color={0x00ff00} />
             <Carla rotation={[0, Math.PI - 0.4, 0]} position={[-1.2, 0, 0]} scale={[0.26, 0.26, 0.26]} color={0x00ff00} />
@@ -101,6 +118,5 @@ export default function App() {
         </Suspense>
 
       </Canvas>
-</div>
   )
 }

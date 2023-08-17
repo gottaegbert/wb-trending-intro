@@ -4,7 +4,7 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import { Reflector, Text, useTexture, useGLTF } from '@react-three/drei'
 import { EffectComposer,ChromaticAberration, DepthOfField, Bloom, Noise, Vignette } from '@react-three/postprocessing'
 // import { useSpring, animated,config } from '@react-spring/three'
-import Overlay from './Overlay'
+// import Overlay from './Overlay'
 // import randomWord from 'random-words'
 
 function Carla(props) {
@@ -18,6 +18,16 @@ function Carla2(props) {
 function Carla3(props) {
   const { scene } = useGLTF('/modelcopy.glb')
   return <primitive object={scene}  {...props} />
+}
+
+function Overlay() { 
+  return (
+    <>
+      
+      <a href="https://gottaegbert.github.io/weibo-trend/">Explore it now</a>
+    </>
+)
+
 }
 // function Item({ children, ...props }) {
 //   const ref = useRef()
@@ -160,7 +170,7 @@ export default function App() {
         </Suspense>
 
       </Canvas>
-      {/* <Overlay {...store} /> */}
+      <Overlay {...store} />
     </>
   )
 }

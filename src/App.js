@@ -145,6 +145,7 @@ export default function App() {
   const store = { clicked, setClicked, ready, setReady }
   return (
     <>
+      <Overlay />
       <Canvas concurrent gl={{ alpha: false }} pixelRatio={[1, 1.5]} camera={{ position: [0, 3, 240], fov: 35 }}>
         <color attach="background" args={['black']} />
         <fog attach="fog" args={['black', 15, 20]} />
@@ -170,7 +171,7 @@ export default function App() {
         </Suspense>
 
       </Canvas>
-      <Overlay {...store} />
+      <Overlay />
     </>
   )
 }
